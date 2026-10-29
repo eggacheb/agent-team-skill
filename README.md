@@ -2,7 +2,9 @@
 
 让 AI 把活拆给**有名字的成员**，而不是派一个你看不见过程的黑盒代理。
 
-一个 [Agent Skill](https://code.claude.com/docs/en/skills)。装进 WorkBuddy 或 Claude Code 之后，遇到能并行的任务，AI 会自己建团队、给每个成员起名派工，你在侧边栏看着它们各干各的。
+一个 WorkBuddy 技能。装好之后，遇到能并行的任务，AI 会自己建团队、给每个成员起名派工，你在侧边栏看着它们各干各的。
+
+> 只支持 WorkBuddy。五步流程绑的是它的团队工具，别的工具没有同名能力。
 
 ---
 
@@ -22,9 +24,7 @@ AI 编程工具里的「分工」通常是这样的：你让它查三件事，�
 
 ## 安装
 
-装法都一样：把仓库克隆成技能目录下的一个文件夹。
-
-### WorkBuddy
+把仓库克隆成技能目录下的一个文件夹。
 
 ```bash
 git clone https://github.com/eggacheb/agent-team-skill.git ~/.workbuddy/skills/agent-team
@@ -32,37 +32,24 @@ git clone https://github.com/eggacheb/agent-team-skill.git ~/.workbuddy/skills/a
 
 Windows 上 `~` 是 `C:\Users\<你的名字>`。
 
-### Claude Code
+只想给某一个项目用的话，把路径换成那个项目里的 `.workbuddy/skills/agent-team`，提交进版本库，同事拉下来就有。
 
-```bash
-git clone https://github.com/eggacheb/agent-team-skill.git ~/.claude/skills/agent-team
-```
-
-只想给某一个仓库用的话，把 `~/.claude/skills` 换成那个仓库里的 `.claude/skills`，然后提交进版本库，同事拉下来就有。
-
-### 让你的 AI 自己装
+### 让 AI 自己装
 
 不想碰命令行，把下面整段丢给你的 AI：
 
 ```
-帮我装一个技能。
+帮我装一个 WorkBuddy 技能。
 
 仓库：https://github.com/eggacheb/agent-team-skill
 
-1. 克隆到你的技能目录，目录名用 agent-team：
-   - WorkBuddy：~/.workbuddy/skills/agent-team
-   - Claude Code：~/.claude/skills/agent-team
-   不确定就用你读技能的那个目录。
+1. 克隆到技能目录，目录名用 agent-team：
+   git clone https://github.com/eggacheb/agent-team-skill.git ~/.workbuddy/skills/agent-team
 2. 读一遍里面的 SKILL.md，确认 frontmatter 的 name 和 description 都在。
-3. 如果你的工具对 frontmatter 严格，删掉 agent_created 那一行（它是 WorkBuddy 的记账字段）。
-4. 装完告诉我：它在什么情况下会被触发，你自己会怎么用它。
+3. 装完告诉我：它在什么情况下会被触发，你自己会怎么用它。
 ```
 
-### 其他工具
-
-任何遵循 Agent Skills 规范的工具有自己的技能目录，认 `SKILL.md` + frontmatter 里的 `name` / `description` 就能用。
-
-不支持这套规范的（Codex、Cursor 之类），把 `SKILL.md` 的正文并进 `AGENTS.md` 或该工具的规则文件，效果接近——只是不会自动触发，得你自己记得去看。
+装完可以问它一句「把 A 模块和 B 模块各查一遍」。预期是它**自己建团队、贴出一张成员表**，而不是直接闷头干活。
 
 ## 什么时候用，什么时候不用
 
@@ -111,20 +98,6 @@ git clone https://github.com/eggacheb/agent-team-skill.git ~/.claude/skills/agen
 
 也踩到三个坑，都写进 `SKILL.md` 了：团队还有成员在跑时删不掉、成员的话传不回主上下文、成员容易写和文档一样长的汇报。
 
-## 移植到别的工具
-
-`SKILL.md` 里的五步绑的是 WorkBuddy 的团队工具。换环境时：
-
-| 这一步 | 有对应的工具 | 没有的话 |
-|---|---|---|
-| 建团队 | 该环境的多智能体原语 | 跳过，直接拆任务 |
-| 写派工单 | 任务列表 / 待办 | 写成文件，一份一个 |
-| 派成员 | 子代理、后台任务 | 逐个执行 |
-| 收与并 | 消息 / 文件 | 读文件 |
-| 收队 | 清理会话 | 无 |
-
-**派工单自包含、一人一个产出文件、结论回文件核对**——这三条与工具无关，任何环境都成立。
-
 ## 文件
 
 ```
@@ -136,15 +109,15 @@ agent-team-skill/
 
 ## English
 
-An Agent Skill that makes the model fan work out to a **named team** — members with names, tasks and visible progress in the sidebar — instead of anonymous subagents you can't observe.
+A WorkBuddy skill that makes the model fan work out to a **named team** — members with names, tasks and visible progress in the sidebar — instead of anonymous subagents you can't observe.
 
 It is a gate first and a procedure second: a team only pays off when the work splits into two or more genuinely independent lines, each needing real digging. Everything else is cheaper done directly.
 
 ```bash
-git clone https://github.com/eggacheb/agent-team-skill.git ~/.claude/skills/agent-team
+git clone https://github.com/eggacheb/agent-team-skill.git ~/.workbuddy/skills/agent-team
 ```
 
-The five-step loop targets WorkBuddy's team tools. On other runtimes, keep the parts that transfer: self-contained briefs, one output file per member, verify claims against the file rather than the report.
+Built for WorkBuddy; its team tools are the target of the five-step loop.
 
 ## License
 
