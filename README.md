@@ -22,6 +22,14 @@ AI 编程工具里的「分工」通常是这样的：你让它查三件事，�
 
 默认往往是第一种。省事，但对使用者不透明。这个技能改的是这个默认。
 
+## 前提：先在设置里打开团队能力
+
+WorkBuddy 左下角 → **设置 → 智能体 → 开启「智能体团队管理」**。
+
+官方对这项的说明：开启后，复杂任务会自动拆给多个智能体协作完成。专家团任务不受此设置影响。
+
+这个技能做的是「建团队、写派工单、派成员、收队」这套流程，团队能力本身由这个开关提供。**不打开，装得再好也走不动。**
+
 ## 安装
 
 把仓库克隆成技能目录下的一个文件夹。
@@ -47,6 +55,7 @@ Windows 上 `~` 是 `C:\Users\<你的名字>`。
    git clone https://github.com/eggacheb/agent-team-skill.git ~/.workbuddy/skills/agent-team
 2. 读一遍里面的 SKILL.md，确认 frontmatter 的 name 和 description 都在。
 3. 装完告诉我：它在什么情况下会被触发，你自己会怎么用它。
+4. 提醒我去左下角「设置 → 智能体」确认「智能体团队管理」开着——技能要靠它才能建团队。
 ```
 
 ## 它为什么会自己触发
@@ -157,6 +166,8 @@ git clone https://github.com/eggacheb/agent-team-skill.git ~/.workbuddy/skills/a
 ```
 
 Built for WorkBuddy; its team tools are the target of the five-step loop.
+
+Requires **Settings → Agents → 智能体团队管理** to be switched on. The team capability comes from that toggle, not from this skill.
 
 ## License
 
